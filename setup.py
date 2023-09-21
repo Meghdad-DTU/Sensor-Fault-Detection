@@ -18,7 +18,7 @@ def get_requirments(file_path:str)->List[str]:
     return requirements    
 
 __version__ = '0.0.1'
-REPO_NAME = 'SENSOR-FAULT-DETECTION'
+REPO_NAME = 'Sensor-Fault-Detection'
 AUTHOR_USER_NAME = 'Meghdad-DTU'
 SRC_REPO = 'sensorFaultDetection'
 AUTHOR_EMAIL = 'mehdizadeh.iust@gmail.com'
@@ -31,7 +31,7 @@ setup(
     author = 'Meghdad',
     author_email = AUTHOR_EMAIL,
     url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",
-    packages_dir={"":"src"},
-    packeges = find_packages(where='src'),
+    package_dir={"":"src"},
+    packages = find_packages(where='src'),
     install_requires = get_requirments('requirements.txt')
     )
