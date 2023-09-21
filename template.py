@@ -21,6 +21,7 @@ list_of_files = [
     f"src/{project_name}/utils.py",
     "config/config.yaml",
     "config/secrets.yaml",
+    "config/schema.yaml",
     "app.py",
     "main.py",
     "Dockerfile",
