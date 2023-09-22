@@ -1,0 +1,6 @@
+artifacts_root: artifacts
+
+# dictionary format of yaml file
+data_ingestion:
+  ROOT_DIR: artifacts/data_ingestion
+  LOCAL_DATA_FILE: artifacts/data_ingestion/data.csv
