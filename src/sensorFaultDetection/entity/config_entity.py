@@ -28,3 +28,13 @@ class DataValidationConfig:
     schema_columns: list
     schema_numerical_columns: list    
     pvalue_threshold: float
+
+@dataclass(frozen= True)
+class DataTransformationConfig:
+    root_dir: Path  
+    train_data_file: Path
+    test_data_file: Path  
+    train_npy_file : Path
+    test_npy_file: Path 
+    target_column: str 
+    preprocessor_file: Path

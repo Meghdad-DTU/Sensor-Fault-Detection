@@ -2,7 +2,8 @@ import os
 from sensorFaultDetection.constants import *
 from sensorFaultDetection.utils import read_yaml, create_directories
 from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
-                                                       DataValidationConfig)
+                                                       DataValidationConfig,
+                                                       DataTransformationConfig)
 
 class ConfigurationManager:
     def __init__(self,
@@ -65,3 +66,21 @@ class ConfigurationManager:
         )        
 
         return data_validation_config
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation        
+
+        create_directories([config.ROOT_DIR])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir= config.ROOT_DIR,    
+            train_data_file= self.config.data_validation.VALID_TRAIN_FILE,
+            test_data_file= self.config.data_validation.VALID_TEST_FILE, 
+            train_npy_file = config.TRAIN_NPY_FILE,
+            test_npy_file= config.TEST_NPY_FILE,
+            target_column= self.params.TARGET_COLUMN,                       
+            preprocessor_file= config.PREPROCESSOR_FILE
+
+        )
+
+        return data_transformation_config

@@ -17,7 +17,7 @@ data_validation:
 
 data_transformation:
   ROOT_DIR: artifacts/data_transformation 
-  TRAIN_NPY: artifacts/data_transformation/train.npy
-  TEST_NPY: artifacts/data_transformation/test.npy
+  TRAIN_NPY_FILE: artifacts/data_transformation/train.npy
+  TEST_NPY_FILE: artifacts/data_transformation/test.npy
   PREPROCESSOR_FILE: artifacts/data_transformation/preprocessor.pkl
   
