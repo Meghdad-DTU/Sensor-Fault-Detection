@@ -3,4 +3,19 @@ artifacts_root: artifacts
 # dictionary format of yaml file
 data_ingestion:
   ROOT_DIR: artifacts/data_ingestion
-  LOCAL_DATA_FILE: artifacts/data_ingestion/data.csv
+  LOCAL_DATA_FILE: artifacts/data_ingestion/sensor.csv
+  TRAIN_DATA_FILE: artifacts/data_ingestion/train.csv
+  TEST_DATA_FILE: artifacts/data_ingestion/test.csv
+
+data_validation:
+  ROOT_DIR: artifacts/data_validation
+  VALID_TRAIN_FILE: artifacts/data_validation/valid/train.csv
+  VALID_TEST_FILE: artifacts/data_validation/valid/test.csv
+  INVALID_TRAIN_FILE: artifacts/data_validation/invalid/train.csv
+  INVALID_TEST_FILE: artifacts/data_validation/invalid/test.csv
+  DRIFT_REPORT_FILE: artifacts/data_validation/drift_report/report.yaml
+
+data_transformation:
+  ROOT_DIR: artifacts/data_transformation 
+  PREPROCESSOR_FILE: artifacts/data_transformation/preprocessor.pkl
+  

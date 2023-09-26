@@ -33,7 +33,24 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
             return ConfigBox(content)
             
     except Exception as e:
-        raise CustomException(e, sys)    
+        raise CustomException(e, sys)   
+
+
+def write_yaml_file(path_to_yaml: Path, content: object, replace:bool=False) -> None:
+    try:
+        if replace:
+            if os.path.exists(path_to_yaml):
+                os.remove(path_to_yaml)
+        os.makedirs(os.path.dirname(path_to_yaml), exist_ok=True)
+        with open(path_to_yaml, 'w') as yaml_file:
+            yaml.dump(content, yaml_file)
+        logging.info(f'yaml file {yaml_file.name} saved successfully')
+
+    except Exception as e:
+        raise CustomException(e, sys)        
+
+
+
 
 @ensure_annotations
 def create_directories(path_to_directories: list, verbos=True):

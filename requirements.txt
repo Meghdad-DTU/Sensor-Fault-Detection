@@ -1,6 +1,7 @@
 boto3
 pandas
 numpy
+scipy
 matplotlib
 notebook
 dvc

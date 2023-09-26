@@ -1,6 +1,8 @@
+import os
 from sensorFaultDetection.constants import *
 from sensorFaultDetection.utils import read_yaml, create_directories
-from sensorFaultDetection.entity.config_entity import DataIngestionConfig
+from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
+                                                       DataValidationConfig)
 
 class ConfigurationManager:
     def __init__(self,
@@ -29,7 +31,37 @@ class ConfigurationManager:
             s3_key= secret.S3_KEY,
             s3_secret_key= secret.S3_SECRET_KEY,
             object_key= secret.OBJECT_KEY,
-            local_data_file= config.LOCAL_DATA_FILE
+            local_data_file= config.LOCAL_DATA_FILE,
+            train_test_ratio= self.params.TRAIN_TEST_RATIO,
+            train_data_file= config.TRAIN_DATA_FILE,
+            test_data_file= config.TEST_DATA_FILE,
+            drop_columns= self.schema.drop_columns
+
         )        
 
         return data_ingestion_config
+    
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config = self.config.data_validation
+        valid_dir = os.path.dirname(config.VALID_TRAIN_FILE)
+        invalid_dir = os.path.dirname(config.INVALID_TRAIN_FILE)
+        report_dir = os.path.dirname(config.DRIFT_REPORT_FILE)
+
+        create_directories([config.ROOT_DIR, valid_dir, invalid_dir, report_dir])
+
+        data_validation_config = DataValidationConfig(
+            root_dir= config.ROOT_DIR,
+            train_data_file= self.config.data_ingestion.TRAIN_DATA_FILE,
+            test_data_file= self.config.data_ingestion.TEST_DATA_FILE,
+            valid_train_file= config.VALID_TRAIN_FILE,
+            valid_test_file= config.VALID_TEST_FILE,
+            invalid_train_file= config.INVALID_TRAIN_FILE,
+            invalid_test_file= config.INVALID_TEST_FILE,
+            drift_report_file= config.DRIFT_REPORT_FILE,
+            schema_columns= self.schema.columns,
+            schema_numerical_columns= self.schema.numerical_columns,            
+            pvalue_threshold= self.params.PVALUE_THRESHOLD,
+
+        )        
+
+        return data_validation_config
