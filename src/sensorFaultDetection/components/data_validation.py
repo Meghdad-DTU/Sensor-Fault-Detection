@@ -140,4 +140,4 @@ class DataValidation:
             logging.info(f'Test set is saved at {self.config.invalid_test_file}!') 
 
 
-        write_yaml_file(path_to_yaml= self.config.drift_report_file, content= drift_report, replace= True)
+        write_yaml_file(path= self.config.drift_report_file, content= drift_report, replace= True)
