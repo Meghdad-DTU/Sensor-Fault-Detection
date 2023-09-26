@@ -65,6 +65,7 @@ def save_numpy_array(path: Path, array: np.array):
 
     except Exception as e:
         raise CustomException(e, sys)
+
     
 def load_numpy_array(path: Path):
     """
@@ -76,7 +77,7 @@ def load_numpy_array(path: Path):
         with open(path, 'rb') as file_obj:
             npy_file = np.load(file_obj)
             logging.info(f'.npy file is loaded successfully!')
-            return  npy_file       
+        return  npy_file       
 
     except Exception as e:
         raise CustomException(e, sys)
@@ -87,8 +88,8 @@ def create_directories(path_to_directories: list, verbos=True):
     """
     create list of directories
     Args:
-    path_to_directories(list): list of path of directories
-    ignore_log(bool, optional): ignore if multiple dirs is to be created. Defaults to be False
+        path_to_directories (list): list of path of directories
+        ignore_log (bool, optional): ignore if multiple dirs is to be created. Defaults to be False
     """
     try:
         for path in path_to_directories:
@@ -100,8 +101,8 @@ def create_directories(path_to_directories: list, verbos=True):
 
 @ensure_annotations
 def get_size(path: Path) -> str:
-    """get size in KB
-
+    """
+    get size in KB
     Args:
         path (Path): path of the file
 
