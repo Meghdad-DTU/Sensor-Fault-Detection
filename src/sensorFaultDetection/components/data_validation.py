@@ -17,6 +17,7 @@ class DataValidation:
             if len(list(dataframe))==number_of_columns:
                 return True
             else:
+                logging.info('WARNING: Required number of columns is differnt from dataframe columns!')
                 return False
         except Exception as e:
             raise CustomException(e, sys)
