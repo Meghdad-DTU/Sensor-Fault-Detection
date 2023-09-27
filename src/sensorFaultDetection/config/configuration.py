@@ -3,7 +3,9 @@ from sensorFaultDetection.constants import *
 from sensorFaultDetection.utils import read_yaml, create_directories
 from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
                                                        DataValidationConfig,
-                                                       DataTransformationConfig)
+                                                       DataTransformationConfig,
+                                                       ModelTrainerConfig,)
+
 
 class ConfigurationManager:
     def __init__(self,
@@ -84,3 +86,27 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer        
+        train_dir = os.path.dirname(config.TRAIN_CONFUSION_MATRIX_FILE)
+        test_dir = os.path.dirname(config.TEST_CONFUSION_MATRIX_FILE)
+        
+        create_directories([config.ROOT_DIR, train_dir, test_dir ])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir= config.ROOT_DIR,             
+            train_npy_file = self.config.data_transformation.TRAIN_NPY_FILE,
+            test_npy_file = self.config.data_transformation.TEST_NPY_FILE,
+            trained_model_path = config.TRAINED_MODEL_PATH,  
+            train_confusion_matrix_file = config.TRAIN_CONFUSION_MATRIX_FILE, 
+            train_model_performance_file= config.TRAIN_MODEL_PERFORMANCE_FILE,
+            test_confusion_matrix_file = config.TEST_CONFUSION_MATRIX_FILE, 
+            test_model_performance_file= config.TEST_MODEL_PERFORMANCE_FILE,
+            expected_accuracy_threshold = self.params.EXPECTED_ACCURACY_THRESHOLD,
+            overfit_underfit_threshold = self.params.OVERFIT_UNDERFIT_THRESHOLD,
+            preprocessor_file = self.config.data_transformation.PREPROCESSOR_FILE
+
+        )
+
+        return model_trainer_config
