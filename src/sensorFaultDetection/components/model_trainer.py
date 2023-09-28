@@ -1,4 +1,7 @@
+import os
+import datetime
 import sys
+from pathlib import Path
 import pandas as pd
 from sensorFaultDetection. logger import logging
 from sensorFaultDetection.exception import CustomException
@@ -10,11 +13,9 @@ from sensorFaultDetection.entity.config_entity import ModelTrainerConfig
 
 class SensorModel:
     def __init__(self, preprocessing_object: Pipeline, trained_model_object: object):
-        try:
-            self.preprocessing_object = preprocessing_object
-            self.trained_model_object = trained_model_object
-        except Exception as e:
-            raise CustomException(e, sys)
+        self.preprocessing_object = preprocessing_object
+
+        self.trained_model_object = trained_model_object
 
     def predict(self, dataframe: pd.DataFrame) -> pd.DataFrame:
         logging.info("Entered predict method of SensorTruckModel class")
@@ -53,7 +54,15 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e, sys)
+    
+    @staticmethod
+    def create_path_to_artifact(root_path: Path, timestamp: str, file_name: str) -> Path:
+        artifacts_dir = os.path.join(root_path, timestamp)
+        os.makedirs(artifacts_dir, exist_ok=True)
+        file_path = os.path.join(artifacts_dir, file_name)       
+        return file_path
 
+        
     def initiate_model_trainer(self):
         try:
             # loading train and test arr
@@ -72,35 +81,37 @@ class ModelTrainer:
             
             y_train_pred = model.predict(X_train)
             y_test_pred = model.predict(X_test)
-            labels = ["Negative", "Positive"]
+            labels = ["Negative", "Positive"]  
 
+            timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')        
+            
             confusion_matrix_display(
                 y_true = y_train, 
                 y_pred = y_train_pred, 
-                path= self.config.train_confusion_matrix_file, 
+                path= self.create_path_to_artifact(self.config.root_dir, timestamp, 'train_confusion_matrix.png'), 
                 classes=labels
                 )
             train_metric_table= classifier_performance_report(
                 y_true= y_train,
                 y_pred= y_train_pred, 
-                path= self.config.train_model_performance_file, 
+                path= self.create_path_to_artifact(self.config.root_dir, timestamp, 'train_performance_metrics.csv'), 
                 classes=labels
                 )
-            logging.info(f"Model performance metrics for train data is completed and stored at {self.config.train_model_performance_file}!")
+            logging.info(f"Model performance metrics for train data is completed and stored!")
             
             confusion_matrix_display(
                 y_true = y_test, 
                 y_pred = y_test_pred, 
-                path= self.config.test_confusion_matrix_file, 
+                path= self.create_path_to_artifact(self.config.root_dir, timestamp, 'test_confusion_matrix.png'),
                 classes=labels
                 )
             test_metric_table = classifier_performance_report(
                 y_true= y_test, 
                 y_pred= y_test_pred, 
-                path= self.config.test_model_performance_file, 
+                path= self.create_path_to_artifact(self.config.root_dir, timestamp, 'test_performance_metrics.csv'), 
                 classes=labels
                 )
-            logging.info(f"Model performance metrics for test data is completed and stored at {self.config.test_model_performance_file}!")
+            logging.info(f"Model performance metrics for test data is completed and stored!")
 
             if train_metric_table['f1-score'].values[-1] < self.config.expected_accuracy_threshold:
                 raise Exception("Trained model is not good to provide expected accuracy!")
@@ -113,9 +124,10 @@ class ModelTrainer:
                 raise Exception("Model is not good, try to do more investigation")
             
             preprocessor = load_pickle(self.config.preprocessor_file)
-            sensor_model = SensorModel(preprocessing_object= preprocessor, trained_model_object= model)            
+            sensor_model = SensorModel(preprocessing_object= preprocessor, trained_model_object= model)   
 
-            save_pickle(path= self.config.trained_model_path, obj= sensor_model)
+            trained_model_path = self.create_path_to_artifact(self.config.root_dir, timestamp, 'model.pkl')
+            save_pickle(path= trained_model_path, obj= sensor_model)
 
         except Exception as e:
             raise CustomException(e, sys)

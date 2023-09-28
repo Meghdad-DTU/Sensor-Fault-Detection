@@ -44,11 +44,6 @@ class ModelTrainerConfig:
     root_dir: Path
     train_npy_file: Path
     test_npy_file: Path
-    trained_model_path: Path
-    train_confusion_matrix_file: Path
-    train_model_performance_file: Path
-    test_confusion_matrix_file: Path
-    test_model_performance_file: Path
     expected_accuracy_threshold: float
     overfit_underfit_threshold: float
     preprocessor_file: Path
