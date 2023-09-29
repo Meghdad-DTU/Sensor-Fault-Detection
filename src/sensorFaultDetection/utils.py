@@ -173,9 +173,9 @@ def confusion_matrix_display(y_true: np.array, y_pred: np.array, path: Path, cla
         plt.savefig(path)             
         plt.close()
     except Exception as e:
-        raise CustomException
+        raise CustomException(e, sys)
 
-def classifier_performance_report(y_true: np.array, y_pred: np.array,  path: Path, classes: list=None) -> pd.DataFrame:
+def classifier_performance_report(y_true: np.array, y_pred: np.array,  path: Path=None, classes: list=None) -> pd.DataFrame:
     """
     This function returns scikit learn output metrics.classification_report 
     into CSV/tab-delimited format
@@ -199,7 +199,8 @@ def classifier_performance_report(y_true: np.array, y_pred: np.array,  path: Pat
         class_report_df['avg / total'] = avg              
         metrics_table = class_report_df.T
         metrics_table.index = classes + ['avg / total']
-        metrics_table.to_csv(path, index=True, header=True) 
+        if path is not None:
+            metrics_table.to_csv(path, index=True, header=True) 
         return metrics_table  
         
     except Exception as e:
