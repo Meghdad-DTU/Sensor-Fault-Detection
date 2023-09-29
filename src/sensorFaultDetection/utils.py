@@ -31,7 +31,7 @@ def read_yaml(path: Path) -> ConfigBox:
     try:
         with open(path) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logging.info(f'yaml file {yaml_file.name} loaded successfully')
+            logging.info(f'yaml file {yaml_file.name} loaded successfully!')
             return ConfigBox(content)
             
     except Exception as e:
@@ -46,7 +46,7 @@ def write_yaml_file(path: Path, content: object, replace:bool=False) -> None:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as yaml_file:
             yaml.dump(content, yaml_file)
-        logging.info(f'yaml file {yaml_file.name} saved successfully')
+        logging.info(f'yaml file {yaml_file.name} saved successfully!')
 
     except Exception as e:
         raise CustomException(e, sys)        
@@ -97,7 +97,7 @@ def create_directories(path_to_directories: list, verbos=True):
         for path in path_to_directories:
             os.makedirs(path, exist_ok=True)
             if verbos:
-                logging.info(f'created directory at {path}')
+                logging.info(f'Created directory at {path}!')
     except Exception as e:
         raise CustomException(e, sys)
 
@@ -130,7 +130,7 @@ def save_pickle(path: Path, obj: object) -> None:
         os.makedirs(dir_path, exist_ok=True)
         with open(path, 'wb') as file_obj:
             pickle.dump(obj, file_obj)
-        logging.info(f"pickel file saved at {path}")
+        logging.info(f"pickle file saved at {path}!")
     
     except Exception as e:
             raise CustomException(e, sys)
@@ -149,7 +149,7 @@ def load_pickle(path: Path) -> object:
         
         with open(path, 'rb') as file_obj:
             obj = pickle.load(file_obj)
-            logging.info(f"pickel file is loaded successfully from {path}!")
+            logging.info(f"pickle file is loaded successfully from {path}!")
             return obj            
     
     except Exception as e:

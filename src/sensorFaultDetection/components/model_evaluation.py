@@ -1,5 +1,6 @@
 
 import os
+import datetime
 import sys
 import numpy as np
 import pandas as pd
@@ -42,37 +43,58 @@ class ModelResolver:
             #The path is either for a file or not valid"
             return False
     
-    
+    @staticmethod
+    def only_directory_names(dir_path):
+        # How to list ONLY directories in Python
+        dir_names = []
+        items = os.listdir(dir_path)        
+        for item in items:
+            if os.path.isdir(os.path.join(dir_path, item)):
+                dir_names.append(item)
+        return dir_names
+
+    @staticmethod
+    def sort_dates(dates):
+        # Define a key function that converts a date string to a datetime object
+        def date_key(date_string):
+            return datetime.datetime.strptime(date_string, '%Y-%m-%d_%H-%M-%S')
+             
+        # Use the sorted function to sort the list of dates, using the date_key function as the key
+        return sorted(dates, key=date_key)
+
+
     def get_latest_model_path(self, model_dir) -> str:
-        try:
-            timestamps = os.listdir(model_dir)
-            latest_timestamps = timestamps[-1]
-            latest_model_path = os.path.join(model_dir, latest_timestamps, 'model.pkl')
+        try:            
+            timestamps = self.only_directory_names(model_dir)            
+            sorted_timestamps = self.sort_dates(timestamps)                             
+            latest_timestamps = sorted_timestamps[-1]
+            latest_model_path = os.path.join(model_dir, latest_timestamps, 'model.pkl')            
             return latest_model_path
         except Exception as e:
             raise CustomException(e, sys)
         
     def is_model_exists(self) -> bool:
         try:
-            if self.is_dir_empty(self.trained_model_dir) is False:
+            if self.is_dir_empty(self.trained_model_dir) is False:                              
                 return False
             
-            latest_model_path = self.get_latest_model_path(self.trained_model_dir)
-            if not os.path.exists(latest_model_path):
+            latest_model_path = self.get_latest_model_path(self.trained_model_dir)           
+            if not os.path.exists(latest_model_path):                
                 return False
             
-            if self.is_dir_empty(self.best_model_dir) is False:
+            if self.is_dir_empty(self.best_model_dir) is False:                
                 timestamps = os.listdir(self.trained_model_dir)
-                latest_timestamps = timestamps[-1]
+                sorted_timestamps = self.sort_dates(timestamps)            
+                latest_timestamps = sorted_timestamps[-1]
                 source_file = os.path.join(self.trained_model_dir, latest_timestamps, 'model.pkl')
                 destination_file = os.path.join(self.best_model_dir, latest_timestamps)
                 os.makedirs(destination_file, exist_ok= True)
                 shutil.copy (source_file, destination_file) 
                 logging.info(f'There was no best model. Hence, a new best model saved to {destination_file}!')           
             
-            best_model_path = self.get_latest_model_path(self.best_model_dir)
-            if not os.path.exists(best_model_path):
-                return False
+            best_model_path = self.get_latest_model_path(self.best_model_dir)            
+            if not os.path.exists(best_model_path):                              
+                return False            
             
             return True
         
@@ -111,7 +133,7 @@ class ModelEvaluation:
             if not status:
                 return logging.info("WARNING: There is no trained model path available!")                
           
-            latest_model_path = model_resolver.get_latest_model_path(self.config.trained_model_path)
+            latest_model_path = model_resolver.get_latest_model_path(self.config.trained_model_path)            
             latest_model = load_pickle(latest_model_path)           
             best_model_path = model_resolver.get_latest_model_path(self.config.root_dir)            
             best_model = load_pickle(best_model_path)
