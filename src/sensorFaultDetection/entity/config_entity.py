@@ -47,3 +47,13 @@ class ModelTrainerConfig:
     expected_accuracy_threshold: float
     overfit_underfit_threshold: float
     preprocessor_file: Path
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path    
+    trained_model_path: Path    
+    valid_train_file: Path
+    valid_test_file: Path
+    evaluation_report_file: Path
+    model_evaluation_changed_threshold: float
+    target_column: str

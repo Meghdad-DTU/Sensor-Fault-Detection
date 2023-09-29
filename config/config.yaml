@@ -25,8 +25,5 @@ model_trainer:
   ROOT_DIR: artifacts/model_trainer  
 
 model_evaluation:
-  ROOT_DIR: artifacts/model_evaluation
-  BEST_MODEL_PATH: artifacts/model_evaluation/best_model.pkl
-  TEST_MODEL_PERFORMANCE_FILE: artifacts/model_evaluation/model_performance.csv
-  TEST_CONFUSION_MATRIX_FILE: artifacts/model_evaluation/cm.png
-  EVALUATION_REPORT_FILE: artifacts/model_evaluation/valuation_report.yaml
+  ROOT_DIR: artifacts/model_evaluation  
+  EVALUATION_REPORT_FILE: artifacts/model_evaluation/report.yaml

@@ -4,7 +4,8 @@ from sensorFaultDetection.utils import read_yaml, create_directories
 from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
                                                        DataValidationConfig,
                                                        DataTransformationConfig,
-                                                       ModelTrainerConfig,)
+                                                       ModelTrainerConfig,
+                                                       ModelEvaluationConfig,)
 
 
 class ConfigurationManager:
@@ -103,3 +104,20 @@ class ConfigurationManager:
         )
 
         return model_trainer_config
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation       
+        
+        create_directories([config.ROOT_DIR])
+
+        get_model_evaluation_config = ModelEvaluationConfig(
+            root_dir= config.ROOT_DIR,
+            trained_model_path= self.config.model_trainer.ROOT_DIR,           
+            valid_train_file= self.config.data_validation.VALID_TRAIN_FILE,
+            valid_test_file= self.config.data_validation.VALID_TEST_FILE,                
+            evaluation_report_file= config.EVALUATION_REPORT_FILE,
+            model_evaluation_changed_threshold= self.params.MODEL_EVALUATION_CHANGED_THRESHOLD,
+            target_column = self.params.TARGET_COLUMN
+        )
+
+        return get_model_evaluation_config

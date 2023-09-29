@@ -5,8 +5,9 @@ from sensorFaultDetection.pipeline.stage_01_data_ingestion import DataIngestionP
 from sensorFaultDetection.pipeline.stage_02_data_validation import DataValidationPipeline
 from sensorFaultDetection.pipeline.stage_03_data_transformation import DataTransformationPipeline
 from sensorFaultDetection.pipeline.stage_04_model_trainer import ModelTrainerPipeline
+from sensorFaultDetection.pipeline.stage_05_model_evaluation import ModelEvaluationPipeline
 
-'''STAGE_NAME = "Data Ingestion Stage"
+STAGE_NAME = "Data Ingestion Stage"
 
 try:
     logging.info(f'>>>>>>> {STAGE_NAME} started <<<<<<<<')
@@ -39,7 +40,7 @@ try:
     logging.info(f'>>>>>>> {STAGE_NAME} completed <<<<<<<<')
     
 except Exception as e:
-    raise CustomException(e, sys)'''
+    raise CustomException(e, sys)
 
 
 STAGE_NAME = "Model Training Stage"
@@ -47,6 +48,17 @@ STAGE_NAME = "Model Training Stage"
 try:
     logging.info(f'>>>>>>> {STAGE_NAME} started <<<<<<<<')
     obj = ModelTrainerPipeline()
+    obj.main()
+    logging.info(f'>>>>>>> {STAGE_NAME} completed <<<<<<<<')
+    
+except Exception as e:
+    raise CustomException(e, sys)
+
+STAGE_NAME = "Model Evaluation Stage"
+
+try:
+    logging.info(f'>>>>>>> {STAGE_NAME} started <<<<<<<<')
+    obj = ModelEvaluationPipeline()
     obj.main()
     logging.info(f'>>>>>>> {STAGE_NAME} completed <<<<<<<<')
     
