@@ -5,7 +5,8 @@ from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
                                                        DataValidationConfig,
                                                        DataTransformationConfig,
                                                        ModelTrainerConfig,
-                                                       ModelEvaluationConfig,)
+                                                       ModelEvaluationConfig,
+                                                       PredictionConfig)
 
 
 class ConfigurationManager:
@@ -121,3 +122,13 @@ class ConfigurationManager:
         )
 
         return model_evaluation_config
+    
+    def get_prediction_config(self) -> PredictionConfig:       
+
+        prediction_config = PredictionConfig(
+            best_model_dir = self.config.model_evaluation.ROOT_DIR,
+            input_variables= self.schema.numerical_columns,
+            target_column= self.params.TARGET_COLUMN
+        )
+        
+        return prediction_config

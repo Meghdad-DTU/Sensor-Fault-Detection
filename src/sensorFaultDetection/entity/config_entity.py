@@ -57,3 +57,9 @@ class ModelEvaluationConfig:
     evaluation_report_file: Path
     model_evaluation_changed_threshold: float
     target_column: str
+
+@dataclass(frozen=True)
+class PredictionConfig:   
+    best_model_dir: Path
+    input_variables: list
+    target_column: str
