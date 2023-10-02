@@ -10,11 +10,13 @@ from sensorFaultDetection.pipeline.stage_05_model_evaluation import ModelEvaluat
 
 
 class TrainingPipeline:
+    is_pipeline_running= False
     def __init__(self):
         pass
 
     def run_pipeline(self):
-        try:        
+        try: 
+            TrainingPipeline.is_pipeline_running = True       
             STAGE_NAME = "Data Ingestion Stage"
 
             logging.info(f'>>>>>>> {STAGE_NAME} started <<<<<<<<')
@@ -50,7 +52,9 @@ class TrainingPipeline:
             obj = ModelEvaluationPipeline()
             obj.main()
             logging.info(f'>>>>>>> {STAGE_NAME} completed <<<<<<<<')
-                
+            
+            TrainingPipeline.is_pipeline_running = True    
+        
         except Exception as e:
             raise CustomException(e, sys)
         
