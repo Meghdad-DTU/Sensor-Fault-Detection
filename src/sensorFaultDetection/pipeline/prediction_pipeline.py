@@ -17,16 +17,4 @@ class PredictionPipeline:
         prediction_config = config.get_prediction_config()
         prediction = Prediction(filename=self.filename, config=prediction_config)
         df = prediction.initiate_prediction()
-        return df 
-
-file_path = 'artifacts/data_validation/valid/test.csv'
-
-if __name__ == "__main__":    
-    try:        
-        logging.info(f'>>>>>>> stage {STAGE_NAME} started <<<<<<<<')
-        obj = PredictionPipeline(file_path)
-        df = obj.predict()
-        logging.info(f'>>>>>>> stage {STAGE_NAME} completed <<<<<<<<')
-    
-    except Exception as e:
-        raise CustomException(e, sys)
+        return df

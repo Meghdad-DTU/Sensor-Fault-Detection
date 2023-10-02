@@ -56,17 +56,4 @@ class TrainingPipeline:
             TrainingPipeline.is_pipeline_running = True    
         
         except Exception as e:
-            raise CustomException(e, sys)
-        
-
-   
-STAGE_NAME = "Trainig Pipeline" 
-if __name__ == "__main__":    
-    try:        
-        logging.info(f'>>>>>>> stage {STAGE_NAME} started <<<<<<<<')
-        obj = TrainingPipeline()
-        obj.run_pipeline()
-        logging.info(f'>>>>>>> stage {STAGE_NAME} completed <<<<<<<<')
-    
-    except Exception as e:
-        raise CustomException(e, sys)
+            raise CustomException(e, sys)  
