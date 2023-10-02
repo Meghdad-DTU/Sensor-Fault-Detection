@@ -110,7 +110,7 @@ class ConfigurationManager:
         
         create_directories([config.ROOT_DIR])
 
-        get_model_evaluation_config = ModelEvaluationConfig(
+        model_evaluation_config = ModelEvaluationConfig(
             root_dir= config.ROOT_DIR,
             trained_model_path= self.config.model_trainer.ROOT_DIR,           
             valid_train_file= self.config.data_validation.VALID_TRAIN_FILE,
@@ -120,4 +120,4 @@ class ConfigurationManager:
             target_column = self.params.TARGET_COLUMN
         )
 
-        return get_model_evaluation_config
+        return model_evaluation_config
