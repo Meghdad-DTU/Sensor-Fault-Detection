@@ -1,4 +1,0 @@
-,precision,recall,f1-score,support
-Negative,1.0,1.0,1.0,28013.0
-Positive,1.0,1.0,1.0,28013.0
-avg / total,1.0,1.0,1.0,56026.0

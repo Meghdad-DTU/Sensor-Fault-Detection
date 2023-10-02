@@ -21,11 +21,11 @@ class SensorModel:
         logging.info("Entered predict method of SensorTruckModel class")
 
         try:
-            logging.info("Using the trained model to get predictions")
+            logging.info("Used preprocessor object to transform data!")
 
             transformed_feature = self.preprocessing_object.transform(dataframe)
 
-            logging.info("Used the trained model to get predictions")
+            logging.info("Used the trained model to get predictions!")
 
             return self.trained_model_object.predict(transformed_feature)
 
