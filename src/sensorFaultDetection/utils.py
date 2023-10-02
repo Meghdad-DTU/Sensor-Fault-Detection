@@ -17,7 +17,7 @@ from pathlib import Path
 
 
 
-@ensure_annotations
+#@ensure_annotations
 def read_yaml(path: Path) -> ConfigBox:
     """
     reads yaml file and returns
