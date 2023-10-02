@@ -59,7 +59,11 @@ class ModelEvaluationConfig:
     target_column: str
 
 @dataclass(frozen=True)
-class PredictionConfig:   
-    best_model_dir: Path
-    input_variables: list
+class PredictionConfig:
+    root_dir: Path   
+    drift_report_file: Path
+    best_model_dir: Path  
+    valid_train_file: Path  
+    schema_numerical_columns: list
     target_column: str
+    pvalue_threshold: float

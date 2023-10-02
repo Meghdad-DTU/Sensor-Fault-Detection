@@ -27,3 +27,7 @@ model_trainer:
 model_evaluation:
   ROOT_DIR: artifacts/model_evaluation  
   EVALUATION_REPORT_FILE: artifacts/model_evaluation/report.yaml
+
+prediction:
+  ROOT_DIR: artifacts/prediction
+  DRIFT_REPORT_FILE: artifacts/prediction/report.yaml

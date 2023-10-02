@@ -123,12 +123,19 @@ class ConfigurationManager:
 
         return model_evaluation_config
     
-    def get_prediction_config(self) -> PredictionConfig:       
+    def get_prediction_config(self) -> PredictionConfig: 
+        config = self.config.prediction
+        
+        create_directories([config.ROOT_DIR])      
 
         prediction_config = PredictionConfig(
+            root_dir = config.ROOT_DIR,
+            drift_report_file= config.DRIFT_REPORT_FILE,
             best_model_dir = self.config.model_evaluation.ROOT_DIR,
-            input_variables= self.schema.numerical_columns,
-            target_column= self.params.TARGET_COLUMN
+            valid_train_file= self.config.data_validation.VALID_TRAIN_FILE,
+            schema_numerical_columns= self.schema.numerical_columns,
+            target_column= self.params.TARGET_COLUMN,
+            pvalue_threshold= self.params.PVALUE_THRESHOLD
         )
         
         return prediction_config
