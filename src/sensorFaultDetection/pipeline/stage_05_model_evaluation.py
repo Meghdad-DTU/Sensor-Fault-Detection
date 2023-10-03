@@ -8,6 +8,7 @@ from sensorFaultDetection.components.model_evaluation import ModelEvaluation
 STAGE_NAME = "Model Evaluation Stage"
 
 class ModelEvaluationPipeline:
+    is_model_accepted = False
     def __init__(self):
         pass
 
@@ -15,7 +16,8 @@ class ModelEvaluationPipeline:
         config = ConfigurationManager()
         model_evaluation_config = config.get_model_evaluation_config()
         model_evaluation = ModelEvaluation(config=model_evaluation_config)
-        model_evaluation.initiate_model_evaluation()    
+        model_evaluation.initiate_model_evaluation() 
+        ModelEvaluationPipeline.is_model_accepted =  model_evaluation.is_model_accepted  
 
 
 if __name__ == "__main__":    

@@ -7,7 +7,7 @@ from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
                                                        ModelTrainerConfig,
                                                        ModelEvaluationConfig,
                                                        PredictionConfig,
-                                                       )
+                                                       TrainingPipelineConfig)
 
 
 class ConfigurationManager:
@@ -143,3 +143,15 @@ class ConfigurationManager:
         )
         
         return prediction_config    
+    
+
+    def get_training_pipeline_config(self) -> TrainingPipelineConfig:               
+
+        training_pipeline_config = TrainingPipelineConfig(
+            artifacts_dir= self.config.artifacts_root,
+            saved_model_dir= self.saved_modelpath,
+            training_bucket_name= self.secret.aws_credential.TRAINING_BUCKET_NAME
+            
+        )
+        
+        return training_pipeline_config   

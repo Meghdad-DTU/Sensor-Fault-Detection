@@ -103,6 +103,8 @@ class ModelResolver:
 
             
 class ModelEvaluation:
+    is_model_accepted = False
+    
     def __init__(self, config: ModelEvaluationConfig):
         self.config = config
 
@@ -163,7 +165,7 @@ class ModelEvaluation:
             improved_accuracy = latest_metric_table['f1-score'].values[-1] - best_metric_table['f1-score'].values[-1]            
             
             if improved_accuracy > self.config.model_evaluation_changed_threshold:  
-                is_model_accepted = True              
+                ModelEvaluation.is_model_accepted = True              
                 logging.info(f"Latest model performs better than the old version!")                
                 best_metric_table= classifier_performance_report(
                     y_true= y_true,
@@ -179,14 +181,13 @@ class ModelEvaluation:
                 save_pickle(path= self.config.saved_model_path, obj= latest_model)
                 logging.info(f"Best model is replaced by a new vesion!") 
 
-            else:
-                is_model_accepted = False
+            else:                
                 if not os.path.exists(self.config.saved_model_path):
                     save_pickle(path= self.config.saved_model_path, obj= best_model)
                 logging.info(f"Latest model does not perform better than the old version!")                
 
             evaluation_report = dict()
-            evaluation_report['is_model_accepted'] = is_model_accepted
+            evaluation_report['is_model_accepted'] = ModelEvaluation.is_model_accepted
             evaluation_report['improved_accuracy']= float(improved_accuracy)
             evaluation_report['best_model_path']=  best_model_path
             evaluation_report['latest_model_path']=  latest_model_path

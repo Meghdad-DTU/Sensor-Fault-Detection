@@ -69,3 +69,9 @@ class PredictionConfig:
     target_column: str
     pvalue_threshold: float
 
+@dataclass(frozen=True)
+class TrainingPipelineConfig:
+    artifacts_dir: Path
+    saved_model_dir: Path
+    training_bucket_name: str   
+   
