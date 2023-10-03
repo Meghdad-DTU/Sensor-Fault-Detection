@@ -45,7 +45,19 @@ sudo usermod -aG docker ubuntu
 
 newgrp docker
 ```
-- 7- Configure EC2 as self-hosted runner 
+- 7- Configure EC2 as self-hosted runner
+```bash
+github: setting>actions>runner>new self-hosted runner>chosse os> then run command one by one
+``` 
+- 8- Setup github secrets
+```bash
+AWS_ACCESS_KEY_ID: #########
+AWS_SECRET_ACCESS_KEY: #########
+AWS_REGION: us-east-2
+AWS_ECR_LOGIN_URI: 607841237944.dkr.ecr.us-east-2.amazonaws.com
+ECR_REPOSITORY_NAME: sensor-faualt-detection
+```
+
 
 ## Policy
 - 1- AmazonEC2ContainerRegistryFullAccess
