@@ -57,6 +57,7 @@ class ModelEvaluationConfig:
     evaluation_report_file: Path
     model_evaluation_changed_threshold: float
     target_column: str
+    saved_model_path: Path
 
 @dataclass(frozen=True)
 class PredictionConfig:
@@ -67,3 +68,4 @@ class PredictionConfig:
     schema_numerical_columns: list
     target_column: str
     pvalue_threshold: float
+

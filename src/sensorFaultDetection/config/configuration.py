@@ -6,7 +6,8 @@ from sensorFaultDetection.entity.config_entity import (DataIngestionConfig,
                                                        DataTransformationConfig,
                                                        ModelTrainerConfig,
                                                        ModelEvaluationConfig,
-                                                       PredictionConfig)
+                                                       PredictionConfig,
+                                                       )
 
 
 class ConfigurationManager:
@@ -14,14 +15,16 @@ class ConfigurationManager:
                  config_filepath=CONFIG_FILE_PATH,
                  secret_filepath=SECRET_FILE_PATH,
                  schema_filepath=SCHEMA_FILE_PATH,
-                 params_filepath=PARAMS_FILE_PATH
+                 params_filepath=PARAMS_FILE_PATH,
+                 saved_modelpath=SAVED_MODEL_PATH,
                  ):
-        
+       
         self.config = read_yaml(config_filepath)
         self.secret = read_yaml(secret_filepath)
         self.schema = read_yaml(schema_filepath)
         self.params = read_yaml(params_filepath)
-
+        self.saved_modelpath = saved_modelpath
+        
         create_directories([self.config.artifacts_root])
 
     def get_data_ingestion_config(self) -> DataIngestionConfig:
@@ -118,7 +121,8 @@ class ConfigurationManager:
             valid_test_file= self.config.data_validation.VALID_TEST_FILE,                
             evaluation_report_file= config.EVALUATION_REPORT_FILE,
             model_evaluation_changed_threshold= self.params.MODEL_EVALUATION_CHANGED_THRESHOLD,
-            target_column = self.params.TARGET_COLUMN
+            target_column = self.params.TARGET_COLUMN,
+            saved_model_path = self.saved_modelpath
         )
 
         return model_evaluation_config
@@ -138,4 +142,13 @@ class ConfigurationManager:
             pvalue_threshold= self.params.PVALUE_THRESHOLD
         )
         
-        return prediction_config
+        return prediction_config    
+
+    def get_training_pipeline_config(self) -> TrainingPipelineConfig:              
+
+        training_pipeline_config = TrainingPipelineConfig(
+            artifacts_dir = self.config.artifacts_root,
+            saved_model_dir= 'saved_model/model.pkl',          
+        )
+        
+        return training_pipeline_config

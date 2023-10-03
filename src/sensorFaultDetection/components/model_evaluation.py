@@ -172,12 +172,17 @@ class ModelEvaluation:
                     classes=labels
                 )
 
+
                 new_best_model_path = os.path.join(os.path.dirname(best_model_path, 'model.pkl'))
+                # save the best model in both artifacts and save_model folders
                 save_pickle(path= new_best_model_path, obj= latest_model)
+                save_pickle(path= self.config.saved_model_path, obj= latest_model)
                 logging.info(f"Best model is replaced by a new vesion!") 
 
             else:
                 is_model_accepted = False
+                if not os.path.exists(self.config.saved_model_path):
+                    save_pickle(path= self.config.saved_model_path, obj= best_model)
                 logging.info(f"Latest model does not perform better than the old version!")                
 
             evaluation_report = dict()
@@ -190,5 +195,7 @@ class ModelEvaluation:
 
         except Exception as e:
             raise CustomException(e, sys)
+    
+    
     
     
