@@ -143,12 +143,3 @@ class ConfigurationManager:
         )
         
         return prediction_config    
-
-    def get_training_pipeline_config(self) -> TrainingPipelineConfig:              
-
-        training_pipeline_config = TrainingPipelineConfig(
-            artifacts_dir = self.config.artifacts_root,
-            saved_model_dir= 'saved_model/model.pkl',          
-        )
-        
-        return training_pipeline_config
