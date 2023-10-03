@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 project_name = "sensorFaultDetection"
 
 list_of_files = [
-    ".github/workflows/.gitkeep",
+    ".github/workflows/main.yaml",
     f"src/{project_name}/__init__.py",
     f"src/{project_name}/components/__init__.py",
     f"src/{project_name}/pipeline/__init__.py",    
