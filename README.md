@@ -9,17 +9,17 @@ In this project, the system in focus is the Air Pressure system (APS) which gene
 The problem is to reduce the cost due to unnecessary repairs. So it is required to minimize the false predictions.
 
 ## Deploymnet
-- 1. Login to AWS console
-- 2. Create IAM user for deploymnet with specific access
+- 1- Login to AWS console
+- 2- Create IAM user for deploymnet with specific access
     - EC2 access: It is virtual machine
     - S3 bucket: To store artifacts and model is s3 bucket
     - ECR: Elastic Container Registry to save docker image in aws
 
 ## Description about deployment
-- 1. Build docker image of the source code
-- 2. Push your docker image to ECR
-- 3. Launch EC2 instance
-- 4. Pull your image from ECR in EC2 instance
-- 5. Launch your docker image in EC2 instance
+- 1- Build docker image of the source code
+- 2- Push your docker image to ECR
+- 3- Launch EC2 instance
+- 4- Pull your image from ECR in EC2 instance
+- 5- Launch your docker image in EC2 instance
 
 
