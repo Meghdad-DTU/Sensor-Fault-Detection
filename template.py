@@ -20,6 +20,8 @@ list_of_files = [
     f"src/{project_name}/exception.py",
     f"src/{project_name}/logger.py",
     f"src/{project_name}/utils.py",
+    f"src/{project_name}/cloud_storage/__init__.py",
+    f"src/{project_name}/cloud_storage/s3_syncer.py",
     "config/config.yaml",
     "config/secrets.yaml",
     "config/schema.yaml",
