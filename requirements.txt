@@ -4,7 +4,6 @@ numpy
 scipy
 matplotlib
 notebook
-dvc
 python-box == 6.0.2
 pyYAML
 tqdm
