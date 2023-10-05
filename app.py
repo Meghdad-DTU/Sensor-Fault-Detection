@@ -38,12 +38,12 @@ async def index():
 
 @app.get("/train")
 async def trainRouteClient():
-    try:
-        train_pipeline = TrainingPipeline()
-        if train_pipeline.is_pipeline_running:
+    try:       
+        training_pipeline = TrainingPipeline()             
+        if training_pipeline.is_pipeline_running:
             return Response('Training pipeline is already running!')
 
-        train_pipeline.run_pipeline()
+        training_pipeline.run_pipeline()
 
         return Response("Training successful!!")
 
