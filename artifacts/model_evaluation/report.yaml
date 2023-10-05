@@ -1,4 +1,4 @@
 best_model_path: artifacts/model_evaluation/2023-10-03_10-23-56/model.pkl
-improved_accuracy: 0.0
+improved_accuracy: -0.00010546590995452743
 is_model_accepted: false
-latest_model_path: artifacts/model_trainer/2023-10-03_12-41-35/model.pkl
+latest_model_path: artifacts/model_trainer/2023-10-05_12-53-58/model.pkl
