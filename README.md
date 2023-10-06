@@ -8,6 +8,12 @@ In this project, the system in focus is the Air Pressure system (APS) which gene
 
 The problem is to reduce the cost due to unnecessary repairs. So it is required to minimize the false predictions.
 
+## Sensor Fault Detection Architecture
+![Screenshot](images/sensorTrainingAchitecture.jpeg)
+
+## Sensor Fault Detection Training Pipeline 
+![Screenshot](images/TrainingPipeline.png)
+
 ## Deploymnet
 - 1- Login to AWS console
 - 2- Create IAM user for deploymnet with specific access
