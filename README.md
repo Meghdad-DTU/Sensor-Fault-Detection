@@ -9,7 +9,7 @@ In this project, the system in focus is the Air Pressure system (APS) which gene
 The problem is to reduce the cost due to unnecessary repairs. So it is required to minimize the false predictions.
 
 ## Sensor Fault Detection Architecture
-![Screenshot](images/sensorTrainingAchitecture.jpeg)
+![Screenshot](images/SensorTrainingAchitecture.jpeg)
 
 ## Sensor Fault Detection Training Pipeline 
 ![Screenshot](images/TrainingPipeline.png)
